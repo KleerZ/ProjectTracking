@@ -1,0 +1,62 @@
+﻿<form *ngIf="updateTask" class="w-50" [formGroup]="updateTask" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+        <label for="firstName" class="form-label">Project name</label>
+        <input type="text"
+               formControlName="name"
+               class="form-control"
+               id="firstName"
+               placeholder="Project name">
+
+        <div class="text-danger" *ngIf="updateTask.controls.name.errors?.required &&
+            updateTask.controls['name'].touched">
+            Name is required
+        </div>
+
+        <div class="text-danger" *ngIf="updateTask.controls.name.hasError('minlength') &&
+            updateTask.controls['name'].touched">
+            Name min lenght - 2
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="form-label">Delivery date</label>
+        <input type="date"
+               formControlName="deliveryDate"
+               class="form-control"
+               id="lastName"
+               placeholder="Delivery date">
+
+        <div class="text-danger" *ngIf="updateTask.controls.deliveryDate.errors?.required &&
+            updateTask.controls['deliveryDate'].touched">
+            Delivery date is required
+        </div>
+    </div>
+
+    <label class="form-label">Employee</label>
+    <select class="form-select mb-2" *ngIf="employees" formControlName="employee">
+        <option [ngValue]="employee.id" *ngFor="let employee of employees">
+            {{employee.firstName + ' ' + employee.lastName}}
+        </option>
+    </select>
+
+    <div class="text-danger mb-2" *ngIf="updateTask.controls.employee.errors?.required &&
+            updateTask.controls['employee'].touched">
+        Employee is required
+    </div>
+
+    <label class="form-label">Project</label>
+    <select class="form-select mb-2" *ngIf="projects" formControlName="project">
+        <option [ngValue]="project.id" *ngFor="let project of projects">
+            {{project.name}}
+        </option>
+    </select>
+    <div class="text-danger mb-2" *ngIf="updateTask.controls.project.errors?.required &&
+            updateTask.controls['project'].touched">
+        Project is required
+    </div>
+
+    <div>
+        <input class="btn btn-success" [disabled]="!updateTask.valid" type="submit" value="Create">
+    </div>
+</form>

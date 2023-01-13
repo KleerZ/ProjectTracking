@@ -1,0 +1,53 @@
+<form *ngIf="updateEmployee" class="w-50" [formGroup]="updateEmployee" (ngSubmit)="onSubmit()">
+
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First name</label>
+    <input type="text"
+           formControlName="firstName"
+           class="form-control"
+           id="firstName"
+           placeholder="First name">
+
+    <div class="text-danger" *ngIf="updateEmployee.controls.firstName.errors?.required &&
+            updateEmployee.controls['firstName'].touched">
+      First name is required
+    </div>
+
+    <div class="text-danger" *ngIf="updateEmployee.controls.firstName.hasError('minlength') &&
+            updateEmployee.controls['firstName'].touched">
+      First name min lenght - 2
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="lastName" class="form-label">Last name</label>
+    <input type="text"
+           formControlName="lastName"
+           class="form-control"
+           id="lastName"
+           placeholder="Last name">
+
+    <div class="text-danger" *ngIf="updateEmployee.controls.lastName.errors?.required &&
+            updateEmployee.controls['lastName'].touched">
+      Last name is required
+    </div>
+
+    <div class="text-danger" *ngIf="updateEmployee.controls.lastName.hasError('minlength') &&
+            updateEmployee.controls['lastName'].touched">
+      Last name min lenght - 2
+    </div>
+  </div>
+
+    <div style="max-height: 500px; overflow-y:auto">
+        <div *ngFor="let project of projects" class="form-check">
+            <input (change)="onChange()" class="form-check-input" type="checkbox" value="{{project.id}}" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+                {{project.name}}
+            </label>
+        </div>
+    </div>
+
+  <div>
+    <input class="btn btn-success" [disabled]="!updateEmployee.valid" type="submit" value="Update">
+  </div>
+</form>

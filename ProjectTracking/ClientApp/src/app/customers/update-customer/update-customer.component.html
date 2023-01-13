@@ -1,0 +1,25 @@
+<form *ngIf="updateCustomer !== undefined" class="w-50" [formGroup]="updateCustomer" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Customer name</label>
+        <input type="text"
+               formControlName="name"
+               class="form-control"
+               id="name"
+               placeholder="Customer name">
+
+        <div class="text-danger" *ngIf="updateCustomer.controls.name.errors?.required &&
+            updateCustomer.controls['name'].touched">
+            Customer name is required
+        </div>
+
+        <div class="text-danger" *ngIf="updateCustomer.controls.name.hasError('minlength') &&
+            updateCustomer.controls['name'].touched">
+            Customer name min lenght - 2
+        </div>
+    </div>
+
+    <div>
+        <input class="btn btn-success" [disabled]="!updateCustomer.valid" type="submit" value="Update">
+    </div>
+</form>

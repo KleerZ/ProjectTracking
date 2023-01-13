@@ -1,0 +1,52 @@
+﻿<form *ngIf="updateProject" class="w-50" [formGroup]="updateProject" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+        <label for="firstName" class="form-label">Project name</label>
+        <input type="text"
+               formControlName="name"
+               class="form-control"
+               id="firstName"
+               placeholder="Project name">
+
+        <div class="text-danger" *ngIf="updateProject.controls.name.errors?.required &&
+            updateProject.controls['name'].touched">
+            Project name is required
+        </div>
+
+        <div class="text-danger" *ngIf="updateProject.controls.name.hasError('minlength') &&
+            updateProject.controls['name'].touched">
+            Project name min lenght - 2
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="form-label">Delivery date</label>
+        <input type="date"
+               formControlName="deliveryDate"
+               class="form-control"
+               id="lastName"
+               placeholder="Delivery date">
+
+        <div class="text-danger" *ngIf="updateProject.controls.deliveryDate.errors?.required &&
+            updateProject.controls['deliveryDate'].touched">
+            Delivery date is required
+        </div>
+    </div>
+
+    <label class="form-label">Customer</label>
+
+    <select class="form-select mb-2" *ngIf="customers" formControlName="customer">
+        <option [ngValue]="customer.id" *ngFor="let customer of customers">
+            {{customer.name}}
+        </option>
+    </select>
+
+    <div class="text-danger mb-2" *ngIf="updateProject.controls.customer.errors?.required &&
+            updateProject.controls['customer'].touched">
+        Customer is required
+    </div>
+
+    <div>
+        <input class="btn btn-success" [disabled]="!updateProject.valid" type="submit" value="Update">
+    </div>
+</form>

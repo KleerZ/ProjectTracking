@@ -1,0 +1,15 @@
+﻿<button (click)="downloadPdf()" class="btn btn-primary mb-3">Export to PDF</button>
+<div #htmlToPdf *ngIf="project" class="d-flex flex-column">
+    <h3>Project</h3>
+    <h6>Name: {{project.name}}</h6>
+    <h6>Status: {{project.status}}</h6>
+    <h6>Delivery date: {{project.deliveryDate | date:'dd.MM.YY, HH:mm':'UTC+3'}}</h6>
+    <h6>Finish date: {{project.finishDate | date:'dd.MM.YY, HH:mm':'UTC+3'}}</h6>
+    <h6>Customer: {{project.customer.name}}</h6>
+    <div class="mt-2">
+       <h6>Employeers:</h6>
+        <div *ngFor="let emp of project.employees">
+            {{emp.firstName + ' ' + emp.lastName}},
+        </div>
+    </div>
+</div>

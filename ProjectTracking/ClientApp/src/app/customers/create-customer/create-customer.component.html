@@ -1,0 +1,25 @@
+<form class="w-50" [formGroup]="createCustomer" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Customer name</label>
+        <input type="text"
+               formControlName="name"
+               class="form-control"
+               id="name"
+               placeholder="Customer name">
+
+        <div class="text-danger" *ngIf="createCustomer.controls.name.errors?.required &&
+            createCustomer.controls['name'].touched">
+            Customer name is required
+        </div>
+
+        <div class="text-danger" *ngIf="createCustomer.controls.name.hasError('minlength') &&
+            createCustomer.controls['name'].touched">
+            Customer name min lenght - 2
+        </div>
+    </div>
+
+    <div>
+        <input class="btn btn-success" [disabled]="!createCustomer.valid" type="submit" value="Create">
+    </div>
+</form>
